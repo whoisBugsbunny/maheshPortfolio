@@ -34,7 +34,7 @@
                             <div class="card-contain">
                                 <div class="card-c">
                                     <div class="d-flex flex-col h-100">
-                                        <h1 class="bold-head">Bringing Your Ideas To Life Through Design</h1>
+                                        <h1 class="bold-head">Bringing Your Ideas To Life Through Code</h1>
                                         <input class="btn-head w-100 mt-20 h-100" type="button" value="Hire Me">
                                     </div>
                                 </div>
@@ -70,12 +70,26 @@
                 </div>
                 <div class="col-c">
                     <div class="row-c flex-0">
-                        <div class="col-c">
+                        <div class="col-c nav-smooth" id="navbarBlock">
                             <div class="card-contain">
-                                <div class="card-c">
+                                <div class="card-c nav-card">
                                     <div class="navbar-c">
-                                        <div>Mahi.</div>
-                                        <div class="btn"><i class="fa-solid fa-bars"></i></div>
+                                        <!-- <img class="nav-logo" src="images/icons/icon-crop.png" alt=""> -->
+                                        <div class="nav-logo-text">Mahi.</div>
+                                        <div class="navburger" id="navburger">
+                                            <div class="burgerline"></div>
+                                            <div class="burgerline"></div>
+                                            <div class="burgerline"></div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="navDropDownOpts">
+                                        <ul>
+                                            <li><i class="fa-solid fa-brush"></i>theme</li>
+                                            <li><i class="fa-solid fa-file"></i>resume</li>
+                                            <!-- admin access -->
+                                            <li><i class="fa-solid fa-gear"></i>settings</li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -105,13 +119,13 @@
                                         <div class="card-c p-0">
                                             <div class="name-card p-20"><span>Based on:</span><span>Berlin, Germany</span></div>
                                             <div class="location-map">
-                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2344.9906035320214!2d13.37216705334971!3d52.425432230043285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a8458949339da7%3A0x8691680b3a8dfb13!2sDaimlerstra%C3%9Fe%20169%2C%2012277%20Berlin%2C%20Germany!5e1!3m2!1sen!2sin!4v1700741090670!5m2!1sen!2sin" style="border:0;" height="200" width="200" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2432.971583958728!2d13.371900576560604!3d52.425312572036496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a8458949339da7%3A0x8691680b3a8dfb13!2sDaimlerstra%C3%9Fe%20169%2C%2012277%20Berlin%2C%20Germany!5e0!3m2!1sen!2sin!4v1705665670523!5m2!1sen!2sin" width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row-c flex-0">
+                            <div class="row-c flex-0 social-container-pos">
                                 <div class="col-c">
                                     <div class="card-contain">
                                         <div class="card-c social-container">
@@ -125,8 +139,8 @@
                                                 <span onclick="window.open('mailto:pandaymahesh7@gmail.com')">
                                                     <i class="fa-solid fa-at"></i>
                                                 </span>
-                                                <span onclick="window.open('')">
-                                                    <i class="fa-brands fa-stack-overflow"></i>
+                                                <span onclick="window.open('https://wa.me/919041869434')">
+                                                    <i class="fa-brands fa-whatsapp"></i>
                                                 </span>
                                             </div>
                                         </div>
@@ -258,16 +272,15 @@
                             <div class="card-c-title">
                                 <h1>title</h1>
                             </div>
-                            <p>I am a IJI designer with a passion for creating intuitive
-                                and visually appealing user interfaces. I have a strong
-                                understanding of design principles and work closely with
-                                developers to bring my designs to life. I have had the
-                                opportunity to work with a variety of clients at a studio.
-                                and am always striving to improve my skills and stay up-
-                                to-date on the latest design trends</p>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                                Dignissimos corporis error ut ea. Blanditiis beatae,
+                                repudiandae a ratione porro earum ipsum tempora vero eveniet quibusdam,
+                                corporis deserunt repellendus dolorem veniam!</p>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="footer-space t-center">
             </div>
         </div>
     </main>
@@ -284,6 +297,8 @@
         }
     </script>
 
+    <!-- firebase -->
+    <script src="app.js" type="module" defer></script>
 </body>
 
 </html>
