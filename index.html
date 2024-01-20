@@ -26,6 +26,48 @@
 
     <main>
         <div class="main-body font1">
+            <div id="loadingScreen" class="d-none loadingScreen">
+                <div class="loadingContainer">
+                    <div class="loadingIcon">
+                        <i class="spinAnimation fa-solid fa-yin-yang"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="optionRight font1" id="burgerOptions">
+                <span id="closeOptionRight"><i class="fa-solid fa-close"></i></span>
+                <div class="settingsOpts">
+                    <h2 class="">Settings</h2>
+                    <hr>
+                    <!-- <p>coming soon</p>
+                <p>coming soon</p>
+                <p>coming soon</p>
+                <p>coming soon</p>
+                <h2 class="">Edits</h2>
+                <hr> -->
+                    <h3>About</h3>
+                    <textarea name="aboutTextBox" id="aboutTextBox" cols="30" rows="10"></textarea>
+                    <h3>Moto</h3>
+                    <input type="text" name="motoTextBox" id="motoTextBox">
+                    <h3>Location</h3>
+                    <input type="text" name="editLocation" id="">
+                    <h3>LocationURL GoogleMap Embeded</h3>
+                    <textarea name="editLocation" id="" cols="30" rows="10"></textarea>
+                    <h3>Color Blocks</h3>
+                    <div class="settingColorBlocks">
+                        <div><input type="text" name="editTextColorBlock" id=""> = <input type="number" name="editColorBlock" id=""></div>
+                        <div><input type="text" name="editTextColorBlock" id=""> = <input type="number" name="editColorBlock" id=""></div>
+                        <div><input type="text" name="editTextColorBlock" id=""> = <input type="number" name="editColorBlock" id=""></div>
+                    </div>
+
+                    <input type="button" id="saveEditedData" value="Save" class="btn-head w-100 mt-20">
+                    <!-- <div class="footer-space t-center">
+                    </div> -->
+                </div>
+                <!-- <span class="navBtns">Decrypt</span> -->
+                <!-- <span class="navBtns">About</span> -->
+                <!-- <span class="navBtns">Contact</span> -->
+            </div>
+
 
             <div class="row-c go-left">
                 <div class="col-c">
@@ -34,7 +76,7 @@
                             <div class="card-contain">
                                 <div class="card-c">
                                     <div class="d-flex flex-col h-100">
-                                        <h1 class="bold-head">Bringing Your Ideas To Life Through Code</h1>
+                                        <h1 id="valueMoto" class="bold-head">Bringing Your Ideas To Life Through Code</h1>
                                         <input class="btn-head w-100 mt-20 h-100" type="button" value="Hire Me">
                                     </div>
                                 </div>
@@ -45,24 +87,24 @@
                         <div class="col-c">
                             <div class="card-contain">
                                 <div class="card-c work-card bg-green-c">
-                                    <h2>3+</h2>
-                                    <p>Years of Experience</p>
+                                    <h2 name="valueColorBlock">0+</h2>
+                                    <p name="valueTextColorBlock">Years of Experience</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-c">
                             <div class="card-contain">
                                 <div class="card-c work-card bg-yellow-c">
-                                    <h2>5+</h2>
-                                    <p>Handled Project</p>
+                                    <h2 name="valueColorBlock">0+</h2>
+                                    <p name="valueTextColorBlock">Handled Project</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-c">
                             <div class="card-contain">
                                 <div class="card-c work-card bg-pink-c">
-                                    <h2>40+</h2>
-                                    <p>Clients</p>
+                                    <h2 name="valueColorBlock">0+</h2>
+                                    <p name="valueTextColorBlock">Clients</p>
                                 </div>
                             </div>
                         </div>
@@ -85,10 +127,10 @@
                                     <hr>
                                     <div class="navDropDownOpts">
                                         <ul>
-                                            <li><i class="fa-solid fa-brush"></i>theme</li>
-                                            <li><i class="fa-solid fa-file"></i>resume</li>
+                                            <li name="navDropDownOpts"><i class="fa-solid fa-brush"></i>theme</li>
+                                            <li name="navDropDownOpts"><i class="fa-solid fa-file"></i>resume</li>
                                             <!-- admin access -->
-                                            <li><i class="fa-solid fa-gear"></i>settings</li>
+                                            <li name="navDropDownOpts"><i class="fa-solid fa-gear"></i>settings</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -108,7 +150,7 @@
                                 <div class="col-c">
                                     <div class="card-contain">
                                         <div class="card-c">
-                                            <div class="name-card"><span>Name:</span><span>Mahesh Pandey</span></div>
+                                            <div class="name-card"><span>Name:</span><span class="t-right">Mahesh Pandey</span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -116,10 +158,10 @@
                             <div class="row-c">
                                 <div class="col-c">
                                     <div class="card-contain">
-                                        <div class="card-c p-0">
-                                            <div class="name-card p-20"><span>Based on:</span><span>Berlin, Germany</span></div>
+                                        <div class="card-c p-0 d-flex-col">
+                                            <div class="name-card p-20"><span>Based on:</span><span class="t-right" name="valueLocation">Berlin, Germany</span></div>
                                             <div class="location-map">
-                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2432.971583958728!2d13.371900576560604!3d52.425312572036496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a8458949339da7%3A0x8691680b3a8dfb13!2sDaimlerstra%C3%9Fe%20169%2C%2012277%20Berlin%2C%20Germany!5e0!3m2!1sen!2sin!4v1705665670523!5m2!1sen!2sin" width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                                <iframe name="valueLocation" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2432.971583958728!2d13.371900576560604!3d52.425312572036496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a8458949339da7%3A0x8691680b3a8dfb13!2sDaimlerstra%C3%9Fe%20169%2C%2012277%20Berlin%2C%20Germany!5e0!3m2!1sen!2sin!4v1705665670523!5m2!1sen!2sin" width="200" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                             </div>
                                         </div>
                                     </div>
@@ -160,7 +202,7 @@
                                 <h1>About</h1>
                                 <span>Resume</span>
                             </div>
-                            <p>I am a IJI designer with a passion for creating intuitive
+                            <p id="valueAbout">I am a IJI designer with a passion for creating intuitive
                                 and visually appealing user interfaces. I have a strong
                                 understanding of design principles and work closely with
                                 developers to bring my designs to life. I have had the

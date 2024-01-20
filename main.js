@@ -15,3 +15,15 @@ function animateBurger() {
 navBurger.addEventListener('click', () => {
     animateBurger();
 });
+
+const closeOptionRight = document.getElementById('closeOptionRight');
+const burgerOptions = document.getElementById('burgerOptions');
+closeOptionRight.addEventListener('click', () => {
+    burgerOptions.classList.remove('optRightShow');
+});
+
+const navDropDownOpts = document.getElementsByName('navDropDownOpts');
+navDropDownOpts[2].addEventListener('click', () => {
+    animateBurger();
+    burgerOptions.classList.add('optRightShow');
+});

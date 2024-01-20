@@ -47,10 +47,17 @@
 .flex-0 {
 	flex: 0 !important;
 }
+.d-none {
+	display: none !important;
+}
 .d-flex {
 	display: flex;
 }
 .flex-col {
+	flex-direction: column;
+}
+.d-flex-col {
+	display: flex;
 	flex-direction: column;
 }
 .w-100 {
@@ -61,6 +68,9 @@
 }
 .t-center {
 	text-align: center;
+}
+.t-right {
+	text-align: right;
 }
 .mt-20 {
 	margin-top: 20px;
@@ -158,6 +168,67 @@
 }
 .nav-logo-text {
 	font-size: 20px;
+}
+.optionRight {
+	position: fixed;
+	background: #000;
+	color: #fff;
+	width: 100%;
+	margin: 0 !important;
+	height: 100vh;
+	top: 0;
+	padding: 35px 20px;
+	display: flex;
+	flex-direction: column;
+	/* align-items: center; */
+	right: 100%;
+	left: 100%;
+	transition: all 300ms ease;
+	z-index: 11;
+	overflow: auto;
+}
+.optRightShow {
+	left: 0;
+}
+.optionRight > span {
+	cursor: pointer;
+	display: flex;
+	font-size: 40px;
+	position: absolute;
+	right: 20px;
+	top: 20px;
+}
+.settingsOpts {
+	max-width: 1024px;
+}
+.settingsOpts > h3 {
+	margin-top: 15px;
+}
+.settingsOpts > * {
+	border-radius: var(--radius-3);
+	width: 100%;
+}
+.settingsOpts > input,
+.settingsOpts > textarea {
+	padding: 10px;
+	font-size: 20px;
+}
+.settingColorBlocks > div {
+	display: flex;
+	align-items: center;
+	padding: 5px 0;
+}
+.settingColorBlocks > div > input {
+	padding: 5px;
+	border-radius: 10px;
+}
+.settingColorBlocks > div :first-child {
+	flex: 1;
+	margin-right: 5px;
+}
+.settingColorBlocks > div :last-child {
+	margin-left: 5px;
+	width: 50px;
 }
 @media screen and (max-width: 425px) {
 	.projectSnapContainer > div {
@@ -292,6 +363,7 @@
 }
 .location-map {
 	height: 100%;
+	min-height: 200px;
 }
 .location-map > iframe {
 	width: 100%;
@@ -392,6 +464,35 @@
 	/* background: var(--img-url); */
 	object-fit: cover;
 	background-size: cover;
+}
+
+/* loading css */
+.loadingScreen {
+	color: white;
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	background: #00000075;
+	z-index: 1000;
+	backdrop-filter: blur(5px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.loadingIcon {
+	font-size: 70px;
+	/* animation: spin 1s infinite linear; */
+}
+.spinAnimation {
+	animation: spin 500ms infinite linear;
+}
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 /* temperary css */
