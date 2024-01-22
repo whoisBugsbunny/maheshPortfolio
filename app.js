@@ -20,6 +20,13 @@ const firebaseConfig = {
     measurementId: "G-DNGFJYV761"
 };
 import {
+    getAuth,
+    onAuthStateChanged,
+    signOut,
+    signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js";
+
+import {
     doc,
     getFirestore,
     getDoc,
@@ -30,6 +37,69 @@ import {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
+const auth = getAuth();
+
+const logoutdiv = document.getElementById('logoutdiv');
+const logindiv = document.getElementById('logindiv');
+const navDropDownOptsSettings = document.getElementById('navDropDownOptsSettings');
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const uid = user.uid;
+        logindiv.classList.add('d-none');
+        logoutdiv.classList.remove('d-none');
+        navDropDownOptsSettings.classList.remove('d-none');
+        // ...
+    } else {
+        logoutdiv.classList.add('d-none');
+        logindiv.classList.remove('d-none');
+        navDropDownOptsSettings.classList.add('d-none');
+        // User is signed out
+        // ...
+    }
+});
+
+const loginBox = document.getElementById('loginBox');
+const loginScreen = document.getElementById('loginScreen');
+const loginBtn = document.getElementById('loginBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+
+loginBox.addEventListener('click', () => {
+    loginScreen.classList.remove('d-none');
+});
+
+loginBtn.addEventListener('click', () => {
+    console.log("loginBtn clicked");
+    const email = document.getElementById('adminEmail').value;
+    const password = document.getElementById('adminPass').value;
+    login(email, password);
+});
+function login(email, password) {
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in 
+            const user = userCredential.user;
+            console.log(user);
+            loginScreen.classList.add('d-none');
+            // ...
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log("login fail ", errorCode, errorMessage);
+        });
+}
+logoutBtn.addEventListener('click', () => {
+    logout();
+});
+function logout() {
+    signOut(auth).then(() => {
+        loginScreen.classList.add('d-none');
+    }).catch((error) => {
+        // An error happened.
+    });
+}
 
 const db = getFirestore(app);
 const contentDoc = doc(db, "siteData", "allContent");
@@ -64,8 +134,13 @@ function showData(data) {
     valueColorBlock[1].innerHTML = data.colorBlocksValues[1] + '+';
     valueColorBlock[2].innerHTML = data.colorBlocksValues[2] + '+';
     valueLocation[0].innerHTML = data.location;
-
     valueLocation[1].src = getOnlyURL(data.locationURL);
+
+    // change theme according to database
+    changeTheme(data.theme);
+
+    const themesOpts = document.getElementsByName('themesOpts');
+    themesOpts[data.theme].classList.add('activeOpts');
 }
 
 function getOnlyURL(htmlString) {
@@ -81,6 +156,46 @@ function getOnlyURL(htmlString) {
     }
 }
 
+function changeTheme(theme) {
+    const body = document.getElementsByTagName('body');
+    const mainBody = document.getElementById('mainBody');
+
+    // Remove all existing classes
+    body[0].classList.remove('mystic-tranquility-scroll', 'shrine-scroll', 'snowy-fablescape-scroll');
+    mainBody.classList.remove('mystic-tranquility', 'shrine', 'snowy-fablescape');
+
+    switch (theme) {
+        case '0':
+            break;
+        case '1':
+            body[0].classList.add('mystic-tranquility-scroll');
+            mainBody.classList.add('mystic-tranquility');
+            break;
+        case '2':
+            body[0].classList.add('shrine-scroll');
+            mainBody.classList.add('shrine');
+            break;
+        case '3':
+            body[0].classList.add('snowy-fablescape-scroll');
+            mainBody.classList.add('snowy-fablescape');
+            break;
+        default:
+            break;
+    }
+}
+
+// local no data connection involved
+const themesOpts = document.getElementsByName('themesOpts');
+themesOpts.forEach((e) => {
+    e.addEventListener('click', () => {
+        themesOpts.forEach((op) => {
+            op.classList.remove('activeOpts');
+        });
+        e.classList.add('activeOpts');
+        changeTheme(e.dataset.value);
+    });
+});
+
 function setDataToEdit(data) {
     // html objects
     const editMoto = document.getElementById('motoTextBox');
@@ -88,6 +203,7 @@ function setDataToEdit(data) {
     const editTextColorBlock = document.getElementsByName('editTextColorBlock');
     const editColorBlock = document.getElementsByName('editColorBlock');
     const editLocation = document.getElementsByName('editLocation');
+    const editThemeDropBox = document.getElementById('editThemeDropBox');
 
     // set values from database
     editMoto.value = data.moto;
@@ -99,8 +215,8 @@ function setDataToEdit(data) {
     editColorBlock[1].value = data.colorBlocksValues[1];
     editColorBlock[2].value = data.colorBlocksValues[2];
     editLocation[0].value = data.location;
-
     editLocation[1].value = data.locationURL;
+    editThemeDropBox.value = data.theme;
 }
 
 const saveEditedData = document.getElementById('saveEditedData');
@@ -120,7 +236,8 @@ saveEditedData.addEventListener('click', () => {
             document.getElementsByName('editColorBlock')[2].value
         ],
         location: document.getElementsByName('editLocation')[0].value,
-        locationURL: document.getElementsByName('editLocation')[1].value
+        locationURL: document.getElementsByName('editLocation')[1].value,
+        theme: document.getElementById('editThemeDropBox').value
     };
     saveEdits(edits);
 });
@@ -137,5 +254,7 @@ async function saveEdits(edits) {
     loadingScreen.classList.add('d-none');
     const closeOptionRight = document.getElementById('closeOptionRight');
     closeOptionRight.click();
-    showData(contentDocSnap.data());
+
+    const contentDocSnapNew = await getDoc(contentDoc);
+    showData(contentDocSnapNew.data());
 };

@@ -25,7 +25,30 @@
 <body>
 
     <main>
-        <div class="main-body font1">
+        <div id="mainBody" class="main-body font1">
+            <div id="loginScreen" class="d-none loginScreen">
+                <div class="loginContainer">
+                    <div>
+                        <h2 name="text-w" class="mb-2 mb-md-3 black">Log<span class="text-prime bold">in</span></h2>
+                        <a id="closeLogin" class="closeLogin"><i class="fa fa-close fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                    <div id="logoutdiv" class="d-none">
+                        <button id="logoutBtn" class="btn-head px-4 py-3">logOut <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+
+                    </div>
+                    <div id="logindiv" class="">
+                        <div class="form-group">
+                            <input type="email" name="admin_email" id="adminEmail" class="form-control px-3 py-4" placeholder="Email" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="admin_pass" id="adminPass" class="form-control px-3 py-4" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <button id="loginBtn" class="btn-head px-4 py-3">login <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="loadingScreen" class="d-none loadingScreen">
                 <div class="loadingContainer">
                     <div class="loadingIcon">
@@ -33,39 +56,56 @@
                     </div>
                 </div>
             </div>
+            <div id="themeSelect" class="d-none themeSelect">
+                <div class="themeSelectContainer">
+                    <div class="themeBox">
+                        <h3>Dark</h3>
+                        <div data-value="0" name="themesOpts" class="themesOpts-0 themesOpts">Pure Black</div>
+                        <div data-value="1" name="themesOpts" class="themesOpts-1 themesOpts">Mystic Tranquility</div>
+                    </div>
+                    <div class="themeBox">
+                        <h3>Light</h3>
+                        <div data-value="2" name="themesOpts" class="themesOpts-2 themesOpts">Shrine</div>
+                        <div data-value="3" name="themesOpts" class="themesOpts-3 themesOpts">Snowy Fablescape</div>
+                    </div>
+                </div>
+            </div>
             <div class="optionRight font1" id="burgerOptions">
                 <span id="closeOptionRight"><i class="fa-solid fa-close"></i></span>
                 <div class="settingsOpts">
-                    <h2 class="">Settings</h2>
-                    <hr>
-                    <!-- <p>coming soon</p>
-                <p>coming soon</p>
-                <p>coming soon</p>
-                <p>coming soon</p>
-                <h2 class="">Edits</h2>
-                <hr> -->
-                    <h3>About</h3>
-                    <textarea name="aboutTextBox" id="aboutTextBox" cols="30" rows="10"></textarea>
-                    <h3>Moto</h3>
-                    <input type="text" name="motoTextBox" id="motoTextBox">
-                    <h3>Location</h3>
-                    <input type="text" name="editLocation" id="">
-                    <h3>LocationURL GoogleMap Embeded</h3>
-                    <textarea name="editLocation" id="" cols="30" rows="10"></textarea>
-                    <h3>Color Blocks</h3>
-                    <div class="settingColorBlocks">
-                        <div><input type="text" name="editTextColorBlock" id=""> = <input type="number" name="editColorBlock" id=""></div>
-                        <div><input type="text" name="editTextColorBlock" id=""> = <input type="number" name="editColorBlock" id=""></div>
-                        <div><input type="text" name="editTextColorBlock" id=""> = <input type="number" name="editColorBlock" id=""></div>
+                    <div>
+                        <h2 class="">Settings</h2>
+                        <hr>
+                        <h3>About</h3>
+                        <textarea name="aboutTextBox" id="aboutTextBox" cols="30" rows="10"></textarea>
+                        <h3>Moto</h3>
+                        <input type="text" name="motoTextBox" id="motoTextBox">
+                        <h3>Location</h3>
+                        <input type="text" name="editLocation">
+                        <h3>LocationURL GoogleMap Embeded</h3>
+                        <textarea name="editLocation" cols="30" rows="10"></textarea>
+                        <h3>Color Blocks</h3>
+                        <div class="settingColorBlocks">
+                            <div><input type="text" name="editTextColorBlock"> = <input type="number" name="editColorBlock"></div>
+                            <div><input type="text" name="editTextColorBlock"> = <input type="number" name="editColorBlock"></div>
+                            <div><input type="text" name="editTextColorBlock"> = <input type="number" name="editColorBlock"></div>
+                        </div>
+                        <h3>Theme</h3>
+                        <select name="theme" id="editThemeDropBox">
+                            <optgroup label="Dark">
+                                <option value="0">Pure Black</option>
+                                <option value="1">Mystic Tranquility</option>
+                            </optgroup>
+                            <optgroup label="Light">
+                                <option value="2">Shrine</option>
+                                <option value="3">Snowy Fablescape</option>
+                            </optgroup>
+                        </select>
+                        <input type="button" id="saveEditedData" value="Save" class="btn-head w-100 mt-20">
+                        <!-- <div class="footer-space t-center">
+                        </div> -->
                     </div>
-
-                    <input type="button" id="saveEditedData" value="Save" class="btn-head w-100 mt-20">
-                    <!-- <div class="footer-space t-center">
-                    </div> -->
                 </div>
-                <!-- <span class="navBtns">Decrypt</span> -->
-                <!-- <span class="navBtns">About</span> -->
-                <!-- <span class="navBtns">Contact</span> -->
             </div>
 
 
@@ -116,21 +156,24 @@
                             <div class="card-contain">
                                 <div class="card-c nav-card">
                                     <div class="navbar-c">
-                                        <!-- <img class="nav-logo" src="images/icons/icon-crop.png" alt=""> -->
-                                        <div class="nav-logo-text">Mahi.</div>
+                                        <div id="loginBox">
+                                            <!-- <img class="nav-logo" src="images/icons/icon-crop.png" alt=""> -->
+                                            <div class="nav-logo-text">Mahi.</div>
+                                        </div>
                                         <div class="navburger" id="navburger">
                                             <div class="burgerline"></div>
                                             <div class="burgerline"></div>
                                             <div class="burgerline"></div>
                                         </div>
                                     </div>
-                                    <hr>
+                                    <hr style="margin-top:1px;">
                                     <div class="navDropDownOpts">
                                         <ul>
-                                            <li name="navDropDownOpts"><i class="fa-solid fa-brush"></i>theme</li>
+                                            <li id="navDropDownOptsThemes"><i class="fa-solid fa-brush"></i>theme</li>
                                             <li name="navDropDownOpts"><i class="fa-solid fa-file"></i>resume</li>
+                                            <li name="navDropDownOpts"><i class="fa-solid fa-person-digging"></i>coming soon</li>
                                             <!-- admin access -->
-                                            <li name="navDropDownOpts"><i class="fa-solid fa-gear"></i>settings</li>
+                                            <li id="navDropDownOptsSettings"><i class="fa-solid fa-gear"></i>settings</li>
                                         </ul>
                                     </div>
                                 </div>

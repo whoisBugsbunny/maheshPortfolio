@@ -22,8 +22,26 @@ closeOptionRight.addEventListener('click', () => {
     burgerOptions.classList.remove('optRightShow');
 });
 
-const navDropDownOpts = document.getElementsByName('navDropDownOpts');
-navDropDownOpts[2].addEventListener('click', () => {
+const navDropDownOptsSettings = document.getElementById('navDropDownOptsSettings');
+navDropDownOptsSettings.addEventListener('click', () => {
     animateBurger();
     burgerOptions.classList.add('optRightShow');
+});
+
+const loginScreen = document.getElementById('loginScreen');
+const closeLogin = document.getElementById('closeLogin');
+
+closeLogin.addEventListener('click', () => {
+    loginScreen.classList.add('d-none');
+});
+
+const navDropDownOptsThemes = document.getElementById('navDropDownOptsThemes');
+const themeSelect = document.getElementById('themeSelect');
+
+navDropDownOptsThemes.addEventListener('click', () => {
+    animateBurger();
+    themeSelect.classList.remove('d-none');
+});
+themeSelect.addEventListener('click', () => {
+    themeSelect.classList.add('d-none');
 });
