@@ -45,3 +45,9 @@ navDropDownOptsThemes.addEventListener('click', () => {
 themeSelect.addEventListener('click', () => {
     themeSelect.classList.add('d-none');
 });
+
+// const mainImages = document.getElementsByName('mainImages');
+// for (let i = 0; i < mainImages.length; i++) {
+//     mainImages[i].style.zIndex = i + 1;
+//     mainImages[i].style.right = `${i * 100}%`;
+// }
