@@ -33,7 +33,28 @@
 <body>
 
     <main>
-        <div id="mainBody" class="main-body font1">
+        <!-- animation slides -->
+        <div class="animationSlide slide1" name="animationSlide"></div>
+        <div class="animationSlide slide2" name="animationSlide"></div>
+        <div class="animationSlide slide3" name="animationSlide"></div>
+        <!-- animation slides -->
+
+        <div class="burgerMenuSlide">
+            <div class="burgerMenuSlideClose"><span name="burgerMenuSlideClose"><i class="fa fa-close fa-2x" aria-hidden="true"></i></span></div>
+
+            <div id="achievements" class="achievements d-none">
+                <h2>Achievements</h2>
+            </div>
+        </div>
+        <div class="burgerMenuSlide">
+            <div class="burgerMenuSlideClose"><span name="burgerMenuSlideClose"><i class="fa fa-close fa-2x" aria-hidden="true"></i></span></div>
+
+            <div id="certificates" class="certificates d-none">
+                <h2>Certificates</h2>
+            </div>
+        </div>
+
+        <div id="mainBody" class="main-body font1 theme">
             <div id="loginScreen" class="d-none loginScreen">
                 <div class="loginContainer">
                     <div>
@@ -64,7 +85,7 @@
                     </div>
                 </div>
             </div>
-            <div id="themeSelect" class="d-none themeSelect">
+            <div id="themeSelect" class="hideThemeScreen themeSelect">
                 <div class="themeSelectContainer">
                     <div class="themeBox">
                         <h3>Dark</h3>
@@ -84,10 +105,14 @@
                     <div>
                         <h2 class="">Settings</h2>
                         <hr>
-                        <h3>About</h3>
-                        <textarea name="aboutTextBox" id="aboutTextBox" cols="30" rows="10"></textarea>
                         <h3>Moto</h3>
                         <input type="text" name="motoTextBox" id="motoTextBox">
+                        <h3>About</h3>
+                        <textarea name="aboutTextBox" id="aboutTextBox" cols="30" rows="10"></textarea>
+                        <h3>Skills (saprate with ", " )</h3>
+                        <h4>Available Logos</h4>
+                        <div>c, cpp, python, androidstudio, dart, flutter, firebase, mongo, mysql, html, css, bootstrap, javascript, jquery, nodejs, gitbash</div>
+                        <textarea name="skillsTextBox" id="skillsTextBox" cols="30" rows="10"></textarea>
                         <h3>Location</h3>
                         <input type="text" name="editLocation">
                         <h3>LocationURL GoogleMap Embeded</h3>
@@ -125,7 +150,7 @@
                                 <div class="card-c">
                                     <div class="d-flex flex-col h-100">
                                         <h1 id="valueMoto" class="bold-head">Bringing Your Ideas To Life Through Code</h1>
-                                        <input class="btn-head w-100 mt-20 h-100" type="button" value="Hire Me">
+                                        <div onclick="window.open('mailto:pandaymahesh7@gmail.com')" class="flex-center btn-head w-100 mt-20 h-100">Hire Me</div>
                                     </div>
                                 </div>
                             </div>
@@ -179,8 +204,8 @@
                                         <ul>
                                             <li id="navDropDownOptsThemes"><i class="fa-solid fa-brush"></i>theme</li>
                                             <!-- <li name="navDropDownOpts"><i class="fa-solid fa-file"></i>resume</li> -->
-                                            <li name="navDropDownOpts"><i class="fa-solid fa-trophy"></i>achievements</li>
-                                            <li name="navDropDownOpts"><i class="fa-solid fa-certificate"></i>certificates</li>
+                                            <li id="navDropDownOptsAchievements"><i class="fa-solid fa-trophy"></i>achievements</li>
+                                            <li id="navDropDownOptsCertificates"><i class="fa-solid fa-certificate"></i>certificates</li>
                                             <!-- admin access -->
                                             <li id="navDropDownOptsSettings"><i class="fa-solid fa-gear"></i>settings</li>
                                         </ul>
@@ -233,8 +258,8 @@
                                                 <span onclick="window.open('https://github.com/maheshpandey04')">
                                                     <i class="fa-brands fa-github"></i>
                                                 </span>
-                                                <span onclick="window.open('mailto:pandaymahesh7@gmail.com')">
-                                                    <i class="fa-solid fa-at"></i>
+                                                <span onclick="window.open('tel:(+49) 15510239894')">
+                                                    <i class="fa-solid fa-phone"></i>
                                                 </span>
                                                 <span onclick="window.open('https://wa.me/919041869434')">
                                                     <i class="fa-brands fa-whatsapp"></i>
@@ -269,32 +294,17 @@
                 </div>
                 <div class="col-c">
                     <div class="card-contain">
-                        <div class="card-c">
+                        <div class="card-c d-flex-col">
                             <div class="card-c-title">
                                 <h1>Skills</h1>
                                 <!-- <span>See All</span> -->
                             </div>
-                            <div class="img-container">
-                                <div class="projectSnapContainer">
-                                    <div>
-                                        <div>
-                                            <h3>Android</h3>
-                                            <i class="fa-brands fa-android"></i>
-                                        </div>
-                                        <div>
-                                            <h3>Web Development</h3>
-                                            <i class="fa-brands fa-html5"></i>
-                                            <i class="fa-brands fa-css3"></i>
-                                            <i class="fa-brands fa-js"></i>
-                                        </div>
-                                        <div>
-                                            <h3>Data-related Skills</h3>
-                                            <i class="fa-solid fa-database"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="moreSnapbtn">
-
+                            <div class="skills-container">
+                                <div id="skillSnapContainer" class="skillSnapContainer font2">
+                                    <!-- <div><img src="/images/brandIcons/express.png" alt="express" srcset=""></div> -->
+                                    <!-- <div class="moreSnapbtn">
+                                        See All
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

@@ -136,6 +136,8 @@ function showData(data) {
     valueLocation[0].innerHTML = data.location;
     valueLocation[1].src = getOnlyURL(data.locationURL);
 
+    addSkills(data.skills);
+
     // change theme according to database
     changeTheme(data.theme);
 
@@ -156,28 +158,41 @@ function getOnlyURL(htmlString) {
     }
 }
 
+function addSkills(skills) {
+    const skillsContainer = document.getElementById('skillSnapContainer');
+    skillsContainer.innerHTML = '';
+    skills.forEach((skill) => {
+        // const skillDiv = `<div class="skillbox"><img src="/images/brandIcons/${skill}.png" alt="${skill}" srcset="">${skill}</div>`
+        const skillDiv = document.createElement('div');
+        skillDiv.classList.add('skillbox');
+        const skillImg = document.createElement('img');
+        skillImg.src = `/images/brandIcons/${skill}.png`;
+        skillImg.alt = skill;
+        skillDiv.appendChild(skillImg);
+        skillDiv.innerHTML += skill;
+        skillsContainer.appendChild(skillDiv);
+    });
+}
+
+
 function changeTheme(theme) {
     const body = document.getElementsByTagName('body');
-    const mainBody = document.getElementById('mainBody');
 
     // Remove all existing classes
-    body[0].classList.remove('mystic-tranquility-scroll', 'shrine-scroll', 'snowy-fablescape-scroll');
-    mainBody.classList.remove('mystic-tranquility', 'shrine', 'snowy-fablescape');
+    body[0].classList.remove('black-theme', 'mystic-tranquility', 'shrine', 'snowy-fablescape');
 
     switch (theme) {
         case '0':
+            body[0].classList.add('black-theme');
             break;
         case '1':
-            body[0].classList.add('mystic-tranquility-scroll');
-            mainBody.classList.add('mystic-tranquility');
+            body[0].classList.add('mystic-tranquility');
             break;
         case '2':
-            body[0].classList.add('shrine-scroll');
-            mainBody.classList.add('shrine');
+            body[0].classList.add('shrine');
             break;
         case '3':
-            body[0].classList.add('snowy-fablescape-scroll');
-            mainBody.classList.add('snowy-fablescape');
+            body[0].classList.add('snowy-fablescape');
             break;
         default:
             break;
@@ -200,6 +215,7 @@ function setDataToEdit(data) {
     // html objects
     const editMoto = document.getElementById('motoTextBox');
     const editAbout = document.getElementById('aboutTextBox');
+    const editskills = document.getElementById('skillsTextBox');
     const editTextColorBlock = document.getElementsByName('editTextColorBlock');
     const editColorBlock = document.getElementsByName('editColorBlock');
     const editLocation = document.getElementsByName('editLocation');
@@ -208,6 +224,7 @@ function setDataToEdit(data) {
     // set values from database
     editMoto.value = data.moto;
     editAbout.value = data.about;
+    editskills.value = data.skills.join(', ');
     editTextColorBlock[0].value = data.colorBlocksKeys[0];
     editTextColorBlock[1].value = data.colorBlocksKeys[1];
     editTextColorBlock[2].value = data.colorBlocksKeys[2];
@@ -225,6 +242,7 @@ saveEditedData.addEventListener('click', () => {
     const edits = {
         moto: document.getElementById('motoTextBox').value,
         about: document.getElementById('aboutTextBox').value,
+        skills: document.getElementById('skillsTextBox').value.split(', '),
         colorBlocksKeys: [
             document.getElementsByName('editTextColorBlock')[0].value,
             document.getElementsByName('editTextColorBlock')[1].value,

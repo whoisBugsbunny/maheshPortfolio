@@ -20,6 +20,7 @@
 	--light-transparent-1: #e1e1e1b8;
 	--snapshot-width: 200px;
 	--snapshot-height: 200px;
+	--slide-ani-time: 500ms;
 }
 ::-webkit-scrollbar {
 	--_size: 8px;
@@ -32,7 +33,7 @@
 	background: var(--dark-transparent-1);
 }
 ::-webkit-scrollbar-track {
-	background: #000;
+	background: var(--theme-background);
 }
 .main-body {
 	min-height: 100vh;
@@ -43,25 +44,35 @@
 	background-size: cover;
 	background-attachment: fixed;
 }
-
-/* themes */
-.mystic-tranquility {
-	background-image: url(images/background/b1.jpg);
+.theme {
+	background-image: var(--theme-background-img);
 }
-.mystic-tranquility-scroll::-webkit-scrollbar-track {
-	background: linear-gradient(180deg, #f8c0c3 0%, #322f44 70%, #322f44 100%);
+/* themes */
+.black-theme {
+	--theme-background-img: #000;
+	--theme-background: #000;
+}
+.mystic-tranquility {
+	--theme-background-img: url(images/background/b1.jpg);
+	--theme-background: linear-gradient(
+		180deg,
+		#f8c0c3 0%,
+		#322f44 70%,
+		#322f44 100%
+	);
 }
 .shrine {
-	background-image: url(images/background/b2.jpg);
-}
-.shrine-scroll::-webkit-scrollbar-track {
-	background: linear-gradient(180deg, #f7f7f7 0%, #f7f7f7 45%, #838383 100%);
+	--theme-background-img: url(images/background/b2.jpg);
+	--theme-background: linear-gradient(
+		180deg,
+		#f7f7f7 0%,
+		#f7f7f7 45%,
+		#838383 100%
+	);
 }
 .snowy-fablescape {
-	background-image: url(images/background/b3.jpg);
-}
-.snowy-fablescape-scroll::-webkit-scrollbar-track {
-	background: linear-gradient(180deg, #a7b6c5 0%, #f7f3ee 100%);
+	--theme-background-img: url(images/background/b3.jpg);
+	--theme-background: linear-gradient(180deg, #a7b6c5 0%, #f7f3ee 100%);
 }
 /* end of themes */
 
@@ -81,11 +92,19 @@
 	display: flex;
 	flex-direction: column;
 }
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 .w-100 {
 	width: 100%;
 }
 .h-100 {
 	height: 100%;
+}
+.position-fixed {
+	position: fixed;
 }
 .bold {
 	font-weight: bold;
@@ -282,10 +301,12 @@
 		height: 85px;
 	}
 }
-@media screen and (max-width: 512px) {
+@media screen and (max-width: 550px) {
 	.go-left {
 		flex-direction: column-reverse;
 	}
+}
+@media screen and (max-width: 512px) {
 	.projectSnapContainer > div > div {
 		height: 200px !important;
 		/* min-width: 180px; */
@@ -341,7 +362,7 @@
 }
 
 .card-c {
-	min-width: 200px;
+	min-width: 250px;
 	overflow: hidden;
 	color: var(--light-1);
 	background-color: var(--dark-transparent-1);
@@ -493,7 +514,7 @@
 	font-size: 20px;
 }
 .about-me {
-	min-width: 250px;
+	/* min-width: 250px; */
 	/* max-width: 600px; */
 }
 .about-me > div > div > p {
@@ -553,7 +574,48 @@
 	object-fit: cover;
 	background-size: cover;
 }
+/* skills */
+@media (min-width: 512px) and (max-width: 600px) {
+	.skills-container {
+		min-width: 250px;
+	}
+}
+.skills-container {
+	display: flex;
+	align-content: space-between;
+	justify-content: space-between;
+	height: 100%;
+}
+.skillSnapContainer {
+	display: flex;
+	flex-wrap: wrap;
+	height: 100%;
+	justify-content: center;
+}
 
+.skillbox {
+	display: flex;
+	justify-content: center;
+	background: #000000b5;
+	border-radius: 40px;
+	padding: 10px;
+	margin: 5px;
+	flex: 1;
+	flex-direction: row;
+	align-items: center;
+}
+
+.skillSnapContainer > div > img {
+	width: 30px;
+	height: 30px;
+	object-fit: contain;
+	margin-right: 5px;
+}
+.moreSnapbtn {
+	min-width: 200px;
+	max-width: unset;
+	width: 100%;
+}
 /* loading, login css, theme select */
 .form-group {
 	padding: 5px 0;
@@ -581,6 +643,11 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	transition: all 300ms ease-in-out;
+}
+.hideThemeScreen {
+	transform: scale(0);
+	/* backdrop-filter: blur(0px); */
 }
 .loginContainer,
 .themeSelectContainer {
@@ -654,4 +721,49 @@
 	box-shadow: inset -50px 0 0 0 #54ac44;
 }
 
+/* achievement,certificate slide */
+.burgerMenuSlide {
+	color: #fff;
+	background-color: #0f0f0f;
+	position: fixed;
+	left: 100%;
+	z-index: 1;
+	width: 100vw;
+	height: 100vh;
+	transition: all var(--slide-ani-time) ease-in-out 300ms;
+}
+.burgerMenuSlideClose {
+	display: flex;
+	justify-content: flex-end;
+	padding: 15px 15px 0 0;
+}
+.burgerMenuSlideClose > span {
+	cursor: pointer;
+}
+/* animation slide */
+.animationSlide {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	z-index: 10;
+	left: 100%;
+}
+.slide1 {
+	background-color: #00c39a;
+	transition: all var(--slide-ani-time) ease-in-out;
+}
+.slide2 {
+	background-color: #ffbf3c;
+	transition: all var(--slide-ani-time) ease-in-out 150ms;
+}
+.slide3 {
+	background-color: #fe6d79;
+	transition: all var(--slide-ani-time) ease-in-out 300ms;
+}
+.left-100 {
+	left: -100%;
+}
+.left0 {
+	left: 0;
+}
 /* temperary css */
