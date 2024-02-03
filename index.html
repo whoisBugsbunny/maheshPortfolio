@@ -104,7 +104,12 @@
                 <div class="settingsOpts">
                     <div>
                         <h2 class="">Settings</h2>
-                        <hr>
+                        <h3>Profile Pictures (best Practice is to Uploade Square Image 1:1)</h3>
+                        <div class="settingProfilePictures">
+                            <input type="file" id="ProfilePic1">
+                            <input type="file" id="ProfilePic2">
+                            <input type="file" id="ProfilePic3">
+                        </div>
                         <h3>Moto</h3>
                         <input type="text" name="motoTextBox" id="motoTextBox">
                         <h3>About</h3>
@@ -134,6 +139,19 @@
                                 <option value="3">Snowy Fablescape</option>
                             </optgroup>
                         </select>
+
+                        <h2>Files</h2>
+                        <h3>Projects Thumbnails</h3>
+                        <div class="settingProfilePictures">
+                            <input type="file" id="ProjectsShots1">
+                            <input type="file" id="ProjectsShots2">
+                            <input type="file" id="ProjectsShots3">
+                            <input type="file" id="ProjectsShots4">
+                        </div>
+                        <h3>Resume</h3>
+                        <div class="settingProfilePictures">
+                            <input type="file" id="resumeFile">
+                        </div>
                         <input type="button" id="saveEditedData" value="Save" class="btn-head w-100 mt-20">
                         <!-- <div class="footer-space t-center">
                         </div> -->
@@ -218,7 +236,7 @@
                         <div class="col-c">
                             <div class="card-contain">
                                 <div class="card-c main-image">
-                                    <img name="mainImages" src="images/art-green.jpg" alt="">
+                                    <img name="mainImagesPrim" src="images/art-green.jpg" alt="">
                                     <img name="mainImages" src="images/mahe.jpg" alt="">
                                     <img name="mainImages" src="images/mahe1.jpg" alt="">
                                     <img name="mainImages" src="images/mahesh.jpg" alt="">
@@ -280,7 +298,7 @@
                         <div class="card-c">
                             <div class="card-c-title">
                                 <h1>About</h1>
-                                <span>Resume</span>
+                                <a href="files/Mahesh Resume.pdf" target="_blank" id="downloadPdfBtn" class="downloadPdfBtn" download="MaheshPandeyResume.pdf">Resume</a>
                             </div>
                             <p id="valueAbout">I am a IJI designer with a passion for creating intuitive
                                 and visually appealing user interfaces. I have a strong
@@ -324,18 +342,18 @@
                                 <div class="projectSnapContainer">
                                     <div>
                                         <div>
-                                            <img src="images/snapshot/snap1.jpg" alt="" srcset="">
+                                            <img name="appSnap" src="images/imgPlaceholder.png" alt="" srcset="">
                                         </div>
                                         <div>
-                                            <img src="images/snapshot/snap2.jpg" alt="" srcset="">
+                                            <img name="appSnap" src="images/imgPlaceholder.png" alt="" srcset="">
                                         </div>
                                     </div>
                                     <div>
                                         <div>
-                                            <img src="images/snapshot/snap3.jpg" alt="" srcset="">
+                                            <img name="appSnap" src="images/imgPlaceholder.png" alt="" srcset="">
                                         </div>
                                         <div>
-                                            <img src="images/snapshot/snap4.jpg" alt="" srcset="">
+                                            <img name="appSnap" src="images/imgPlaceholder.png" alt="" srcset="">
                                         </div>
                                     </div>
                                     <!-- <div>

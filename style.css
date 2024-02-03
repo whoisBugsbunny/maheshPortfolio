@@ -252,6 +252,12 @@
 	max-width: 768px;
 	width: 100%;
 }
+.settingsOpts > div > h2 {
+	padding: 10px 20px;
+	background: white;
+	color: black;
+	margin-top: 20px;
+}
 .settingsOpts > div > h3 {
 	margin-top: 15px;
 }
@@ -284,6 +290,9 @@
 .settingColorBlocks > div :last-child {
 	margin-left: 5px;
 	width: 50px;
+}
+.settingProfilePictures {
+	padding: 20px 0;
 }
 @media screen and (max-width: 425px) {
 	.projectSnapContainer > div {
@@ -413,7 +422,7 @@
 .main-image {
 	padding: 0;
 	display: flex;
-	--_ani-time: 32s;
+	--_ani-time: 24s;
 	--_dif-time: calc(var(--_ani-time) / 4);
 }
 .main-image > :first-child {
@@ -520,6 +529,10 @@
 .about-me > div > div > p {
 	padding: 10px 0;
 	text-align: justify;
+}
+.downloadPdfBtn {
+	text-decoration: none;
+	color: var(--light-1);
 }
 .projectSnap {
 	display: flex;

@@ -5,19 +5,19 @@ const cacheName = 'maheshPortfolioCache';
 
 // uncomment this to enable caching
 self.addEventListener('install', event => {
-    // event.waitUntil(
-    //     caches.open(cacheName).then(cache => {
-    //         return cache.addAll([
-    //             '/',
-    //             '/index.html',
-    //             '/style.css',
-    //             '/main.js',
-    //             '/images/',
-    //             '/images/android/',
-    //             '/images/ios/'
-    //         ]);
-    //     })
-    // );
+    event.waitUntil(
+        caches.open(cacheName).then(cache => {
+            return cache.addAll([
+                // '/',
+                // '/index.html',
+                // '/style.css',
+                // '/main.js',
+                '/images/',
+                '/images/android/',
+                '/images/ios/'
+            ]);
+        })
+    );
 });
 
 

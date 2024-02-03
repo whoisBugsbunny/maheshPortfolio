@@ -33,11 +33,20 @@ import {
     setDoc
 } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js";
 
+import {
+    getStorage,
+    ref,
+    getDownloadURL,
+    uploadBytes,
+    deleteObject
+} from "https://www.gstatic.com/firebasejs/10.7.2/firebase-storage.js";
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 const auth = getAuth();
+const storage = getStorage();
 
 const logoutdiv = document.getElementById('logoutdiv');
 const logindiv = document.getElementById('logindiv');
@@ -103,9 +112,9 @@ function logout() {
 
 const db = getFirestore(app);
 const contentDoc = doc(db, "siteData", "allContent");
-// const settingsDoc = doc(db, "siteData", "settings");
+// const backUpDoc = doc(db, "siteData", "backUp");
 const contentDocSnap = await getDoc(contentDoc);
-// const settingsDocSnap = await getDoc(settingsDoc);
+// const backUpDocSnap = await getDoc(backUpDoc);
 
 if (contentDocSnap.exists()) {
     // console.log("Document data:", contentDocSnap.data());
@@ -123,6 +132,12 @@ function showData(data) {
     const valueTextColorBlock = document.getElementsByName('valueTextColorBlock');
     const valueColorBlock = document.getElementsByName('valueColorBlock');
     const valueLocation = document.getElementsByName('valueLocation');
+    const mainImages = document.getElementsByName('mainImages');
+    const appSnap = document.getElementsByName('appSnap');
+    const resumeSelected = document.getElementById('downloadPdfBtn');
+
+    setImages(data.profilePicsArr, mainImages, 3);
+    setImages(data.appSnapArr, appSnap, 4);
 
     // set values from database
     valueMoto.innerHTML = data.moto;
@@ -136,6 +151,8 @@ function showData(data) {
     valueLocation[0].innerHTML = data.location;
     valueLocation[1].src = getOnlyURL(data.locationURL);
 
+    setPdfUrl(data.resumeSelected, resumeSelected);
+
     addSkills(data.skills);
 
     // change theme according to database
@@ -143,6 +160,30 @@ function showData(data) {
 
     const themesOpts = document.getElementsByName('themesOpts');
     themesOpts[data.theme].classList.add('activeOpts');
+}
+
+async function setPdfUrl(pdf, object) {
+    const imgURL = await getDownloadURL(ref(storage, pdf));
+    object.href = imgURL;
+}
+
+async function setImages(data, imgDiv, count) {
+    const ImgUrls = await getImagesUrl(data);
+    setUrlsToPage(imgDiv, ImgUrls, count);
+}
+
+async function getImagesUrl(imgr) {
+    const imgURLPromises = imgr.map(async (imgRef) => {
+        const imgURL = await getDownloadURL(ref(storage, imgRef));
+        return imgURL;
+    });
+    return Promise.all(imgURLPromises);
+}
+
+function setUrlsToPage(imgDiv, ImgUrls, count) {
+    for (let i = 0; i < count; i++) {
+        imgDiv[i].src = ImgUrls[i];
+    }
 }
 
 function getOnlyURL(htmlString) {
@@ -239,6 +280,17 @@ function setDataToEdit(data) {
 const saveEditedData = document.getElementById('saveEditedData');
 
 saveEditedData.addEventListener('click', () => {
+    const profilePic1 = document.getElementById('ProfilePic1').files[0];
+    const profilePic2 = document.getElementById('ProfilePic2').files[0];
+    const profilePic3 = document.getElementById('ProfilePic3').files[0];
+
+    const ProjectsShots1 = document.getElementById('ProjectsShots1').files[0];
+    const ProjectsShots2 = document.getElementById('ProjectsShots2').files[0];
+    const ProjectsShots3 = document.getElementById('ProjectsShots3').files[0];
+    const ProjectsShots4 = document.getElementById('ProjectsShots4').files[0];
+
+    const resumeFile = document.getElementById('resumeFile').files[0];
+
     const edits = {
         moto: document.getElementById('motoTextBox').value,
         about: document.getElementById('aboutTextBox').value,
@@ -255,10 +307,32 @@ saveEditedData.addEventListener('click', () => {
         ],
         location: document.getElementsByName('editLocation')[0].value,
         locationURL: document.getElementsByName('editLocation')[1].value,
-        theme: document.getElementById('editThemeDropBox').value
+        theme: document.getElementById('editThemeDropBox').value,
+        profilePicsArr: [
+            getFileNameIfAvail('profilePics', profilePic1, contentDocSnap.data().profilePicsArr[0]),
+            getFileNameIfAvail('profilePics', profilePic2, contentDocSnap.data().profilePicsArr[1]),
+            getFileNameIfAvail('profilePics', profilePic3, contentDocSnap.data().profilePicsArr[2])
+        ],
+        appSnapArr: [
+            getFileNameIfAvail('projectsShots', ProjectsShots1, contentDocSnap.data().appSnapArr[0]),
+            getFileNameIfAvail('projectsShots', ProjectsShots2, contentDocSnap.data().appSnapArr[1]),
+            getFileNameIfAvail('projectsShots', ProjectsShots3, contentDocSnap.data().appSnapArr[2]),
+            getFileNameIfAvail('projectsShots', ProjectsShots4, contentDocSnap.data().appSnapArr[3])
+        ],
+        resumeSelected: getFileNameIfAvail('resume', resumeFile, contentDocSnap.data().resumeSelected)
     };
     saveEdits(edits);
 });
+
+function getFileNameIfAvail(location, file, oldFileName) {
+    if (file) {
+        saveFile(location, file);
+        deleteOldFile(oldFileName);
+        return '/' + location + '/' + file.name;
+    } else {
+        return oldFileName;
+    }
+}
 
 async function saveEdits(edits) {
     const loadingScreen = document.getElementById('loadingScreen');
@@ -273,6 +347,23 @@ async function saveEdits(edits) {
     const closeOptionRight = document.getElementById('closeOptionRight');
     closeOptionRight.click();
 
-    const contentDocSnapNew = await getDoc(contentDoc);
+    const contentDocSnapNew = await new getDoc(contentDoc);
     showData(contentDocSnapNew.data());
 };
+
+function saveFile(location, file) {
+    const storageRef = ref(storage, '/' + location + '/' + file.name);
+
+    // 'file' comes from the Blob or File API
+    uploadBytes(storageRef, file).then((snapshot) => {
+        console.log('Uploaded a blob or file!');
+    });
+}
+function deleteOldFile(oldFileName) {
+    const oldFileRef = ref(storage, oldFileName);
+    deleteObject(oldFileRef).then(() => {
+        console.log('old file deleted');
+    }).catch((error) => {
+        console.log('old file delete error');
+    });
+}
