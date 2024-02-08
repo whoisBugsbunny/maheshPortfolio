@@ -30,7 +30,10 @@ import {
     doc,
     getFirestore,
     getDoc,
-    setDoc
+    setDoc,
+    updateDoc,
+    arrayUnion,
+    arrayRemove
 } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js";
 
 import {
@@ -135,6 +138,12 @@ function showData(data) {
     const mainImages = document.getElementsByName('mainImages');
     const appSnap = document.getElementsByName('appSnap');
     const resumeSelected = document.getElementById('downloadPdfBtn');
+    const appSnapName = document.getElementsByName('appSnapName');
+    const customBlockDiv = document.getElementById('customBlockDiv');
+    const customBlock = document.getElementsByName('customBlock');
+    const appSnapCard = document.getElementsByName('appSnapCard');
+    const certificatesContain = document.getElementById('certificatesContain');
+    const certificateNames = document.getElementById('certificateNames');
 
     setImages(data.profilePicsArr, mainImages, 3);
     setImages(data.appSnapArr, appSnap, 4);
@@ -142,14 +151,23 @@ function showData(data) {
     // set values from database
     valueMoto.innerHTML = data.moto;
     valueAbout.innerHTML = data.about;
-    valueTextColorBlock[0].innerHTML = data.colorBlocksKeys[0];
-    valueTextColorBlock[1].innerHTML = data.colorBlocksKeys[1];
-    valueTextColorBlock[2].innerHTML = data.colorBlocksKeys[2];
-    valueColorBlock[0].innerHTML = data.colorBlocksValues[0] + '+';
-    valueColorBlock[1].innerHTML = data.colorBlocksValues[1] + '+';
-    valueColorBlock[2].innerHTML = data.colorBlocksValues[2] + '+';
+
+    for (let i = 0; i < 3; i++) {
+        valueTextColorBlock[i].innerHTML = data.colorBlocksKeys[i];
+        valueColorBlock[i].innerHTML = data.colorBlocksValues[i] + '+';
+    }
+
     valueLocation[0].innerHTML = data.location;
     valueLocation[1].src = getOnlyURL(data.locationURL);
+
+    for (let i = 0; i < 4; i++) {
+        appSnapName[i].innerText = data.appSnapNameArr[i];
+        appSnapCard[i].onclick = () => window.open(data.appSnapURLArr[i]);
+    }
+
+    customBlockDiv.style.display = data.customBlock[0] ? '' : 'none';
+    customBlock[0].innerHTML = data.customBlock[1];
+    customBlock[1].innerHTML = data.customBlock[2];
 
     setPdfUrl(data.resumeSelected, resumeSelected);
 
@@ -157,6 +175,9 @@ function showData(data) {
 
     // change theme according to database
     changeTheme(data.theme);
+
+    setCetificates(data.certificates, certificatesContain);
+    setCetificateNames(data.certificates, certificateNames);
 
     const themesOpts = document.getElementsByName('themesOpts');
     themesOpts[data.theme].classList.add('activeOpts');
@@ -186,6 +207,19 @@ function setUrlsToPage(imgDiv, ImgUrls, count) {
     }
 }
 
+async function setCetificates(data, element) {
+    const outer = ['#e55f3a', '#007fc0', '#00c009', '#ffef03', '#2a5aa1', '#fab233'];
+    const inner = ['#be4220', '#03639f', '#008906', '#e7d800', '#15376b', '#d68512'];
+    const urls = await getImagesUrl(data);
+
+    const certificateCardsHTML = urls.map((url, index) => `<div class="certificateCard" style="--_colorInner:${inner[index % inner.length]};--_colorOuter:${outer[index % outer.length]}"><img src="${url}" onclick="window.open('${url}')" target="_blank" alt="Certificate"></div>`).join('');
+    element.innerHTML = certificateCardsHTML;
+}
+function setCetificateNames(data, element) {
+    const certificateNames = data.map((name) => `<div class="">${name}</div>`).join('');
+    element.innerHTML = certificateNames;
+}
+
 function getOnlyURL(htmlString) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlString, 'text/html');
@@ -201,13 +235,18 @@ function getOnlyURL(htmlString) {
 
 function addSkills(skills) {
     const skillsContainer = document.getElementById('skillSnapContainer');
+    const iconArr = ['c', 'cpp', 'python', 'androidstudio', 'dart', 'flutter', 'firebase', 'mongo', 'mysql', 'html', 'css', 'bootstrap', 'javascript', 'jquery', 'nodejs', 'gitbash'];
     skillsContainer.innerHTML = '';
     skills.forEach((skill) => {
         // const skillDiv = `<div class="skillbox"><img src="/images/brandIcons/${skill}.png" alt="${skill}" srcset="">${skill}</div>`
         const skillDiv = document.createElement('div');
         skillDiv.classList.add('skillbox');
         const skillImg = document.createElement('img');
-        skillImg.src = `/images/brandIcons/${skill}.png`;
+        if (iconArr.includes(skill)) {
+            skillImg.src = `/images/brandIcons/${skill}.png`;
+        } else {
+            skillImg.src = `/images/brandIcons/skillPlaceholder.png`;
+        }
         skillImg.alt = skill;
         skillDiv.appendChild(skillImg);
         skillDiv.innerHTML += skill;
@@ -261,35 +300,47 @@ function setDataToEdit(data) {
     const editColorBlock = document.getElementsByName('editColorBlock');
     const editLocation = document.getElementsByName('editLocation');
     const editThemeDropBox = document.getElementById('editThemeDropBox');
+    const ProjectsShotsName = document.getElementsByName('ProjectsShotsName');
+    const editCustomBlock = document.getElementsByName('editCustomBlock');
+    const ProjectsShotsURL = document.getElementsByName('ProjectsShotsURL');
 
     // set values from database
     editMoto.value = data.moto;
     editAbout.value = data.about;
     editskills.value = data.skills.join(', ');
-    editTextColorBlock[0].value = data.colorBlocksKeys[0];
-    editTextColorBlock[1].value = data.colorBlocksKeys[1];
-    editTextColorBlock[2].value = data.colorBlocksKeys[2];
-    editColorBlock[0].value = data.colorBlocksValues[0];
-    editColorBlock[1].value = data.colorBlocksValues[1];
-    editColorBlock[2].value = data.colorBlocksValues[2];
+
+    for (let i = 0; i < 3; i++) {
+        editTextColorBlock[i].value = data.colorBlocksKeys[i];
+        editColorBlock[i].value = data.colorBlocksValues[i];
+    }
+
     editLocation[0].value = data.location;
     editLocation[1].value = data.locationURL;
     editThemeDropBox.value = data.theme;
+
+    for (let i = 0; i < 4; i++) {
+        ProjectsShotsName[i].value = data.appSnapNameArr[i];
+        ProjectsShotsURL[i].value = data.appSnapURLArr[i] ? data.appSnapURLArr[i] : '';
+    }
+
+    editCustomBlock[0].checked = data.customBlock[0] ? true : false;
+    editCustomBlock[1].value = data.customBlock[1];
+    editCustomBlock[2].value = data.customBlock[2];
 }
 
 const saveEditedData = document.getElementById('saveEditedData');
 
 saveEditedData.addEventListener('click', () => {
-    const profilePic1 = document.getElementById('ProfilePic1').files[0];
-    const profilePic2 = document.getElementById('ProfilePic2').files[0];
-    const profilePic3 = document.getElementById('ProfilePic3').files[0];
-
-    const ProjectsShots1 = document.getElementById('ProjectsShots1').files[0];
-    const ProjectsShots2 = document.getElementById('ProjectsShots2').files[0];
-    const ProjectsShots3 = document.getElementById('ProjectsShots3').files[0];
-    const ProjectsShots4 = document.getElementById('ProjectsShots4').files[0];
+    const profilePic = document.getElementsByName('ProfilePic');
+    const ProjectsShots = document.getElementsByName('ProjectsShots');
+    const ProjectsShotsName = document.getElementsByName('ProjectsShotsName');
+    const ProjectsShotsURL = document.getElementsByName('ProjectsShotsURL');
 
     const resumeFile = document.getElementById('resumeFile').files[0];
+    const certificateFile = document.getElementById('certificateFile').files[0];
+    const achievementFile = document.getElementById('achievementFile').files[0];
+
+    const editCustomBlock = document.getElementsByName('editCustomBlock');
 
     const edits = {
         moto: document.getElementById('motoTextBox').value,
@@ -309,17 +360,35 @@ saveEditedData.addEventListener('click', () => {
         locationURL: document.getElementsByName('editLocation')[1].value,
         theme: document.getElementById('editThemeDropBox').value,
         profilePicsArr: [
-            getFileNameIfAvail('profilePics', profilePic1, contentDocSnap.data().profilePicsArr[0]),
-            getFileNameIfAvail('profilePics', profilePic2, contentDocSnap.data().profilePicsArr[1]),
-            getFileNameIfAvail('profilePics', profilePic3, contentDocSnap.data().profilePicsArr[2])
+            getFileNameIfAvail('profilePics', profilePic[0].files[0], contentDocSnap.data().profilePicsArr[0]),
+            getFileNameIfAvail('profilePics', profilePic[1].files[0], contentDocSnap.data().profilePicsArr[1]),
+            getFileNameIfAvail('profilePics', profilePic[2].files[0], contentDocSnap.data().profilePicsArr[2])
         ],
         appSnapArr: [
-            getFileNameIfAvail('projectsShots', ProjectsShots1, contentDocSnap.data().appSnapArr[0]),
-            getFileNameIfAvail('projectsShots', ProjectsShots2, contentDocSnap.data().appSnapArr[1]),
-            getFileNameIfAvail('projectsShots', ProjectsShots3, contentDocSnap.data().appSnapArr[2]),
-            getFileNameIfAvail('projectsShots', ProjectsShots4, contentDocSnap.data().appSnapArr[3])
+            getFileNameIfAvail('projectsShots', ProjectsShots[0].files[0], contentDocSnap.data().appSnapArr[0]),
+            getFileNameIfAvail('projectsShots', ProjectsShots[1].files[0], contentDocSnap.data().appSnapArr[1]),
+            getFileNameIfAvail('projectsShots', ProjectsShots[2].files[0], contentDocSnap.data().appSnapArr[2]),
+            getFileNameIfAvail('projectsShots', ProjectsShots[3].files[0], contentDocSnap.data().appSnapArr[3])
         ],
-        resumeSelected: getFileNameIfAvail('resume', resumeFile, contentDocSnap.data().resumeSelected)
+        appSnapNameArr: [
+            ProjectsShotsName[0].value,
+            ProjectsShotsName[1].value,
+            ProjectsShotsName[2].value,
+            ProjectsShotsName[3].value
+        ],
+        appSnapURLArr: [
+            ProjectsShotsURL[0].value,
+            ProjectsShotsURL[1].value,
+            ProjectsShotsURL[2].value,
+            ProjectsShotsURL[3].value
+        ],
+        resumeSelected: getFileNameIfAvail('resume', resumeFile, contentDocSnap.data().resumeSelected),
+        customBlock: [
+            editCustomBlock[0].checked,
+            editCustomBlock[1].value,
+            editCustomBlock[2].value
+        ],
+        certificates: arrayUnion(getFileNameIfAvail('certificates', certificateFile, 0))
     };
     saveEdits(edits);
 });
@@ -327,7 +396,9 @@ saveEditedData.addEventListener('click', () => {
 function getFileNameIfAvail(location, file, oldFileName) {
     if (file) {
         saveFile(location, file);
-        deleteOldFile(oldFileName);
+        if (oldFileName != 0) {
+            deleteOldFile(oldFileName);
+        }
         return '/' + location + '/' + file.name;
     } else {
         return oldFileName;
@@ -338,7 +409,7 @@ async function saveEdits(edits) {
     const loadingScreen = document.getElementById('loadingScreen');
     loadingScreen.classList.remove('d-none');
     try {
-        await setDoc(contentDoc, edits);
+        await updateDoc(contentDoc, edits);
         console.log("Document successfully written!");
     } catch (e) {
         console.log(e);

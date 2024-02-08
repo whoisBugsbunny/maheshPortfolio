@@ -47,10 +47,21 @@
             </div>
         </div>
         <div class="burgerMenuSlide">
-            <div class="burgerMenuSlideClose"><span name="burgerMenuSlideClose"><i class="fa fa-close fa-2x" aria-hidden="true"></i></span></div>
+            <div class="burgerMenuSlideClose">
+                <span name="burgerMenuSlideClose">
+                    <i class="fa fa-close fa-2x" aria-hidden="true"></i>
+                </span>
+            </div>
 
             <div id="certificates" class="certificates d-none">
-                <h2>Certificates</h2>
+                <!-- <h2>Certificates</h2> -->
+                <div class="certificatesContainer">
+                    <div id="certificatesContain">
+                        <div class="certificateCard">
+                            <img src="images/imgPlaceholder.png" alt="">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -105,10 +116,10 @@
                     <div>
                         <h2 class="">Settings</h2>
                         <h3>Profile Pictures (best Practice is to Uploade Square Image 1:1)</h3>
-                        <div class="settingProfilePictures">
-                            <input type="file" id="ProfilePic1">
-                            <input type="file" id="ProfilePic2">
-                            <input type="file" id="ProfilePic3">
+                        <div class="p-10-0">
+                            <input type="file" name="ProfilePic">
+                            <input type="file" name="ProfilePic">
+                            <input type="file" name="ProfilePic">
                         </div>
                         <h3>Moto</h3>
                         <input type="text" name="motoTextBox" id="motoTextBox">
@@ -140,18 +151,40 @@
                             </optgroup>
                         </select>
 
-                        <h2>Files</h2>
                         <h3>Projects Thumbnails</h3>
-                        <div class="settingProfilePictures">
-                            <input type="file" id="ProjectsShots1">
-                            <input type="file" id="ProjectsShots2">
-                            <input type="file" id="ProjectsShots3">
-                            <input type="file" id="ProjectsShots4">
+                        <div class="p-10-0">
+                            <div><input type="text" name="ProjectsShotsName" placeholder="Name of the Project"> <input type="file" name="ProjectsShots"> <input type="url" name="ProjectsShotsURL" placeholder="URL of the Project"></div>
+                            <div><input type="text" name="ProjectsShotsName" placeholder="Name of the Project"> <input type="file" name="ProjectsShots"> <input type="url" name="ProjectsShotsURL" placeholder="URL of the Project"></div>
+                            <div><input type="text" name="ProjectsShotsName" placeholder="Name of the Project"> <input type="file" name="ProjectsShots"> <input type="url" name="ProjectsShotsURL" placeholder="URL of the Project"></div>
+                            <div><input type="text" name="ProjectsShotsName" placeholder="Name of the Project"> <input type="file" name="ProjectsShots"> <input type="url" name="ProjectsShotsURL" placeholder="URL of the Project"></div>
                         </div>
                         <h3>Resume</h3>
-                        <div class="settingProfilePictures">
+                        <div class="p-10-0">
                             <input type="file" id="resumeFile">
                         </div>
+                        <h3>Certificates</h3>
+                        <div id="certificateNames" class="p-10-0">
+
+                        </div>
+                        <div class="p-10-0">
+                            <input type="file" id="certificateFile">
+                        </div>
+                        <h3>Achievements</h3>
+                        <div class="p-10-0">
+                            <input type="file" id="achievementFile">
+                        </div>
+
+                        <h3 class="card-c-title">
+                            <span>Custom Footer Div</span>
+                            <span>
+                                <lable>Show</lable>
+                                <input name="editCustomBlock" type="checkbox">
+                            </span>
+                        </h3>
+                        <input type="text" name="editCustomBlock">
+                        <textarea name="editCustomBlock" cols="30" rows="10"></textarea>
+
+
                         <input type="button" id="saveEditedData" value="Save" class="btn-head w-100 mt-20">
                         <!-- <div class="footer-space t-center">
                         </div> -->
@@ -279,7 +312,7 @@
                                                 <span onclick="window.open('tel:(+49) 15510239894')">
                                                     <i class="fa-solid fa-phone"></i>
                                                 </span>
-                                                <span onclick="window.open('https://wa.me/919041869434')">
+                                                <span onclick="window.open('https://wa.me/4915510239894')">
                                                     <i class="fa-brands fa-whatsapp"></i>
                                                 </span>
                                             </div>
@@ -342,49 +375,49 @@
                                 <div class="projectSnapContainer">
                                     <div>
                                         <div>
-                                            <img name="appSnap" src="images/imgPlaceholder.png" alt="" srcset="">
+                                            <div name="appSnapCard" class="appSnapCard">
+                                                <div><span class="appSnapName" name="appSnapName">Project Name</span></div>
+                                                <img name="appSnap" src="images/imgPlaceholder.png" alt="" srcset="">
+                                            </div>
                                         </div>
                                         <div>
-                                            <img name="appSnap" src="images/imgPlaceholder.png" alt="" srcset="">
+                                            <div name="appSnapCard" class="appSnapCard">
+                                                <div><span class="appSnapName" name="appSnapName">Project Name</span></div>
+                                                <img name="appSnap" src="images/imgPlaceholder.png" alt="" srcset="">
+                                            </div>
                                         </div>
                                     </div>
                                     <div>
                                         <div>
-                                            <img name="appSnap" src="images/imgPlaceholder.png" alt="" srcset="">
+                                            <div name="appSnapCard" class="appSnapCard">
+                                                <div><span class="appSnapName" name="appSnapName">Project Name</span></div>
+                                                <img name="appSnap" src="images/imgPlaceholder.png" alt="" srcset="">
+                                            </div>
                                         </div>
                                         <div>
-                                            <img name="appSnap" src="images/imgPlaceholder.png" alt="" srcset="">
+                                            <div name="appSnapCard" class="appSnapCard">
+                                                <div><span class="appSnapName" name="appSnapName">Project Name</span></div>
+                                                <img name="appSnap" src="images/imgPlaceholder.png" alt="" srcset="">
+                                            </div>
                                         </div>
                                     </div>
-                                    <!-- <div>
-                                        <span>Batar System </span><i class="fa-solid fa-link"></i>
-                                    </div>
-                                    <div>
-                                        <span>Code Endeavors</span> <i class="fa-solid fa-link"></i>
-                                    </div>
-                                    <div>
-                                        <span>Makes Ielts Simple</span> <i class="fa-solid fa-link"></i>
-                                    </div>
-                                    <div>
-                                        <span>Ranker</span> <i class="fa-solid fa-link"></i>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row-c">
+            <div id="customBlockDiv" class="row-c">
                 <div class="col-c">
                     <div class="card-contain">
                         <div class="card-c">
                             <div class="card-c-title">
-                                <h1>title</h1>
+                                <h1 name="customBlock">title</h1>
                             </div>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                            <div name="customBlock">Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                                 Dignissimos corporis error ut ea. Blanditiis beatae,
                                 repudiandae a ratione porro earum ipsum tempora vero eveniet quibusdam,
-                                corporis deserunt repellendus dolorem veniam!</p>
+                                corporis deserunt repellendus dolorem veniam!</div>
                         </div>
                     </div>
                 </div>
